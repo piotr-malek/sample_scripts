@@ -139,7 +139,9 @@ if __name__ == "__main__":
         thread_records, more_items_in_collection, next_start = get_email_threads(start)
         time.sleep(0.2)
 
+        # Single-message threads have sufficient data to determine sender, recipient, etc. and can be processed directly.
         threads_one_response = [row for row in thread_records if row['message_count'] == 1]
+        # Threads with more than one message require additional API calls to fetch the first message for each thread.
         threads_2plus_responses = [row for row in thread_records if row['message_count'] > 1]
 
         if threads_2plus_responses:
